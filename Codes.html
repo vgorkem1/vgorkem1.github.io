@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Codes</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">413 Proje</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">4'Lu Masa</a>
+</li>
+<li>
+  <a href="index1.html">Literature review</a>
+</li>
+<li>
+  <a href="about.html">Introduction</a>
+</li>
+<li>
+  <a href="p3.html">Rental</a>
+</li>
+<li>
+  <a href="p4.html">On Sale</a>
+</li>
+<li>
+  <a href="codes.html">Codes</a>
+</li>
+<li>
+  <a href="Detailed_Regresions.html">Detailed Regressions</a>
+</li>
+<li>
+  <a href="references.html">References</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Codes</h1>
+
+</div>
+
+
+<pre><code>
+library(rvest)
+library(dplyr)
+library(data.table)
+library(tidyr)
+library(&quot;stringr&quot;)
+library(openxlsx)
+
+
+#Tum linkleri almanin kodu
+
+prepPageList &lt;- function(ii) {
+  generate_url &lt;- function(url){
+    output &lt;- paste(&quot;https://www.sahibinden.com&quot;, url, sep=&quot;&quot;)
+    return(output)
+  }
+  cat(&quot;Page : &quot;, ii, &quot;\n&quot;)
+  durl &lt;- paste0(&quot;https://www.sahibinden.com/satilik-daire/izmir-karsiyaka-nergiz?pagingOffset=&quot;,((ii+5)*20),&quot;&amp;a20=38470&amp;a20=38474&quot;)
+  doc &lt;- read_html(durl)
+  doc_ilanlar &lt;- html_nodes(doc, &quot;a.classifiedTitle&quot;)
+  ilan_baslik&lt;- doc_ilanlar %&gt;%
+    html_text(&quot;tittle&quot;) 
+  ilan_linkleri&lt;- doc_ilanlar %&gt;%
+    html_attr(&quot;href&quot;) 
+  son_linkler &lt;- lapply(ilan_linkleri, generate_url)
+  doc_fiyat &lt;- html_nodes(doc, &quot;div.classified-price-container&quot;)
+  fiyat1 &lt;- html_text2(doc_fiyat)
+  c &lt;- data.table(
+    urls = son_linkler,
+    baslik = ilan_baslik,
+    fiyat = fiyat1
+  )
+  Sys.sleep(3)
+  return(c)
+}
+nPage&lt;- 1
+Linkler &lt;- lapply(c(1:nPage), prepPageList)
+tumLinkler &lt;- do.call(&quot;rbind&quot;, Linkler)
+
+
+#Bir tane Linkten Data almanin kodu
+
+url &lt;- &quot;https://www.sahibinden.com/ilan/emlak-konut-kiralik-mavisehir-dudayev-bulvari-aliberti-residence-ta-kiralik-3-plus1-1073776909/detay&quot;
+doc &lt;- read_html(url)
+doc_ilanlar &lt;- html_nodes(doc, &quot;ul.classifiedInfoList&quot;)
+ilan_baslik&lt;- doc_ilanlar %&gt;%
+  html_children()
+
+Ev &lt;- data.table(
+  ev.tum = html_text2(ilan_baslik))
+
+Ev$cod &lt;- word(Ev$ev.tum, 2 , -1)
+Ev$cod[1] &lt;- word(Ev$ev.tum[1] , -1)
+Ev$cod[2] &lt;- word(Ev$ev.tum[2] , -3, -1)
+Ev$cod[3] &lt;- word(Ev$ev.tum[3] , 3, -1)
+Ev$cod[4] &lt;- word(Ev$ev.tum[4] , 3, -1)
+Ev$cod[5] &lt;- word(Ev$ev.tum[5] , 3, -1)
+Ev$cod[6] &lt;- word(Ev$ev.tum[6] , 3, -1)
+Ev$cod[7] &lt;- word(Ev$ev.tum[7] , 3, -1)
+Ev$cod[8] &lt;- word(Ev$ev.tum[8] , 3, -1)
+Ev$cod[9] &lt;- word(Ev$ev.tum[9] , 3, -1)
+Ev$cod[10] &lt;- word(Ev$ev.tum[10] , 2  , -1)
+Ev$cod[11] &lt;- word(Ev$ev.tum[11] ,3, -1)
+Ev$cod[14] &lt;- word(Ev$ev.tum[14] , 3, -1)
+Ev$cod[15] &lt;- word(Ev$ev.tum[15] , 3, -1)
+Ev$cod[16] &lt;- word(Ev$ev.tum[16] , 3, -1)
+Ev$cod[17] &lt;- word(Ev$ev.tum[17] , 3, -1)
+Ev$cod[18] &lt;- word(Ev$ev.tum[18] , 3, -1)
+Ev$tum &lt;- word(Ev$ev.tum, 1)
+Ev$tum[1] &lt;- word(Ev$ev.tum[1], 1, 2)
+Ev$tum[4] &lt;- word(Ev$ev.tum[4], 1, 2)
+Ev$tum[15] &lt;- word(Ev$ev.tum[15], 1, 2)
+
+
+son &lt;- data.table(
+  v1 = t(Ev$cod)
+)
+setnames(son, Ev$tum)
+
+
+#Bu ikisini birlestirip tum linklerden ayri ayri data cekmenin kodu
+
+#nLink kac tane data cekecegimizi soyluyor Bunu 40dan fazla yapinca banliyor.
+nLink &lt;- nrow(tumLinkler)
+
+collectNews &lt;- function(ii) {
+  cat(&quot;Data : &quot;, ii, &quot; of &quot;, nLink, &quot;\n&quot;)
+  surl &lt;- paste0(tumLinkler$urls[ii])
+  doc &lt;- read_html(surl)
+  doc_ilanlar &lt;- html_nodes(doc, &quot;ul.classifiedInfoList&quot;)
+  ilan_baslik&lt;- doc_ilanlar %&gt;%
+    html_children()
+  Ev &lt;- data.table(
+    ev.tum = html_text2(ilan_baslik))
+  
+  
+  Ev$cod &lt;- word(Ev$ev.tum, 2 , -1)
+  Ev$cod[1] &lt;- word(Ev$ev.tum[1] , -1)
+  Ev$cod[2] &lt;- word(Ev$ev.tum[2] , -3, -1)
+  Ev$cod[3] &lt;- word(Ev$ev.tum[3] , 3, -1)
+  Ev$cod[4] &lt;- word(Ev$ev.tum[4] , 3, -1)
+  Ev$cod[5] &lt;- word(Ev$ev.tum[5] , 3, -1)
+  Ev$cod[6] &lt;- word(Ev$ev.tum[6] , 3, -1)
+  Ev$cod[7] &lt;- word(Ev$ev.tum[7] , 3, -1)
+  Ev$cod[8] &lt;- word(Ev$ev.tum[8] , 3, -1)
+  Ev$cod[9] &lt;- word(Ev$ev.tum[9] , 3, -1)
+  Ev$cod[10] &lt;- word(Ev$ev.tum[10] , 2  , -1)
+  Ev$cod[11] &lt;- word(Ev$ev.tum[11] ,3, -1)
+  Ev$cod[14] &lt;- word(Ev$ev.tum[14] , 3, -1)
+  Ev$cod[15] &lt;- word(Ev$ev.tum[15] , 3, -1)
+  Ev$cod[16] &lt;- word(Ev$ev.tum[16] , 3, -1)
+  Ev$cod[17] &lt;- word(Ev$ev.tum[17] , 3, -1)
+  Ev$cod[18] &lt;- word(Ev$ev.tum[18] , 3, -1)
+  Ev$tum &lt;- word(Ev$ev.tum, 1)
+  Ev$tum[1] &lt;- word(Ev$ev.tum[1], 1, 2)
+  Ev$tum[4] &lt;- word(Ev$ev.tum[4], 1, 2)
+  Ev$tum[15] &lt;- word(Ev$ev.tum[15], 1, 2)
+  Ev$ev.tum &lt;- NULL
+  a &lt;- data.table(
+    tum = &quot;Fiyat&quot;,
+    cod = tumLinkler$fiyat[ii]
+  )
+  Ev &lt;- rbind(Ev, a)
+
+  son1 &lt;- data.table(
+    v1 = t(Ev$cod)
+  )
+  setnames(son1, Ev$tum)
+  Sys.sleep(4)
+  return(son1)
+}
+
+
+for (ii in c(1:nLink)) {son &lt;-rbind(son, collectNews(ii), fill = TRUE)}
+
+
+write.xlsx(son, &quot;C:/Users/gurka/OneDrive/Masaüstü/Yeni klasör&quot;)
+
+
+# :&#39;)
+
+rm(list=ls())
+#Regresyon
+
+library(readxl)
+library(rvest)
+library(dplyr)
+library(data.table)
+library(tidyr)
+library(&quot;stringr&quot;)
+library(openxlsx)
+library(data.table)
+library(stargazer)
+library(car)
+
+#NERGİZ KİRA REGRESYON
+class(Nergiz_kira)
+setDT(Nergiz_kira)
+Nergiz_kira[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+Nergiz_kira$Fiyat &lt;- word(Nergiz_kira$Fiyat, 1)
+
+Nergiz_kira[, Fiyat := as.numeric(Fiyat)]
+
+Nergiz_kira[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+Nergiz_kira[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+Nergiz_kira$Eşyalı &lt;- ifelse(Nergiz_kira$Eşyalı==&quot;Hayır&quot;,0,1)
+Nergiz_kira[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+Nergiz_kira[Bulunduğu == &quot;Müstakil&quot;, Bulunduğu := 1]
+
+
+Nergiz_kira[, Oda := as.numeric(Oda)]
+Nergiz_kira[, Eşyalı := as.numeric(Eşyalı)]
+Nergiz_kira[,`m²`:=as.numeric(`m²`)]
+Nergiz_kira[, Bulunduğu := as.numeric(Bulunduğu)]
+
+setnames(Nergiz_kira, &quot;Bulunduğu Kat&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(Fiyat ~ Bulunduğu_Kat + Eşyalı + `m²`+ Oda ,data = Nergiz_kira)
+
+vif(model)
+
+summary(model)
+stargazer(model, type = &quot;text&quot;)
+
+load(&quot;C:/Users/User/OneDrive/Masaüstü/Rproje.RData&quot;)
+
+#NERGİZ SATILIK REGRESYON
+
+class(Nergiz_kira)
+setDT(Nergiz_satis)
+Nergiz_satis[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+Nergiz_satis$Fiyat &lt;- word(Nergiz_satis$Fiyat, 1)
+
+Nergiz_satis[, Fiyat := as.numeric(Fiyat)]
+
+Nergiz_satis[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+Nergiz_satis[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+Nergiz_satis[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+Nergiz_satis[Bulunduğu == &quot;Müstakil&quot;, Bulunduğu := 1]
+
+
+Nergiz_satis[, Oda := as.numeric(Oda)]
+Nergiz_satis[,`m²`:=as.numeric(`m²`)]
+Nergiz_satis[, Bulunduğu := as.numeric(Bulunduğu)]
+
+setnames(Nergiz_satis, &quot;Bulunduğu&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(Fiyat ~ Bulunduğu_Kat + `m²`+ Oda ,data = Nergiz_satis)
+
+vif(model)
+
+summary(model)
+
+#Umitköy Satılık Regresyon
+
+class(Umitkoy_satlik)
+setDT(Umitkoy_satlik)
+Umitkoy_satlik[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+Umitkoy_satlik$Fiyat &lt;- word(Umitkoy_satlik$Fiyat, 1)
+
+Umitkoy_satlik[, Fiyat := as.numeric(Fiyat)]
+
+Umitkoy_satlik[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+Umitkoy_satlik[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+Umitkoy_satlik[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+Umitkoy_satlik[Bulunduğu == &quot;Müstakil&quot;, Bulunduğu := 1]
+Umitkoy_satlik[Bulunduğu == &quot;Giriş Altı Kot 1&quot;, Bulunduğu := -1]
+Umitkoy_satlik[Bulunduğu == &quot;Giriş Katı&quot;, Bulunduğu := 0]
+Umitkoy_satlik[Bulunduğu == &quot;Bahçe Katı&quot;, Bulunduğu := 0]
+Umitkoy_satlik[Bulunduğu == &quot;Zemin Kat&quot;, Bulunduğu := 0]
+
+
+Umitkoy_satlik[, Oda := as.numeric(Oda)]
+Umitkoy_satlik[,`m²`:=as.numeric(`m²`)]
+Umitkoy_satlik[, Bulunduğu := as.numeric(Bulunduğu)]
+
+setnames(Umitkoy_satlik, &quot;Bulunduğu&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(Fiyat ~ Bulunduğu_Kat + `m²`+ Oda ,data = Umitkoy_satlik)
+
+vif(model)
+
+summary(model)
+
+
+#Umitköy Kiralık Regresyon
+
+class(Umitkoy_kira)
+setDT(Umitkoy_kira)
+Umitkoy_kira[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+Umitkoy_kira$Fiyat &lt;- word(Umitkoy_kira$Fiyat, 1)
+
+Umitkoy_kira[, Fiyat := as.numeric(Fiyat)]
+
+Umitkoy_kira[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+Umitkoy_kira[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+Umitkoy_kira$Eşyalı &lt;- ifelse(Umitkoy_kira$Eşyalı==&quot;Hayır&quot;,0,1)
+Umitkoy_kira[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+Umitkoy_kira[Bulunduğu == &quot;Bahçe Katı&quot;, Bulunduğu := 0]
+Umitkoy_kira[Bulunduğu == &quot;Giriş Altı Kot 1&quot;, Bulunduğu := -1]
+Umitkoy_kira[Bulunduğu == &quot;Giriş Altı Kot 2&quot;, Bulunduğu := -2]
+
+
+Umitkoy_kira[, Oda := as.numeric(Oda)]
+Umitkoy_kira[, Eşyalı := as.numeric(Eşyalı)]
+Umitkoy_kira[,`m²`:=as.numeric(`m²`)]
+Umitkoy_kira[, Bulunduğu := as.numeric(Bulunduğu)]
+
+setnames(Umitkoy_kira, &quot;Bulunduğu&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(Fiyat ~ Bulunduğu_Kat + Eşyalı + `m²`+ Oda ,data = Umitkoy_kira)
+
+vif(model)
+
+summary(model)
+stargazer(model, type = &quot;text&quot;)
+
+
+#Bahçelievler Kiralık Regresyon
+
+setDT(bahceli_kira)
+bahceli_kira[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+bahceli_kira$Fiyat &lt;- word(bahceli_kira$Fiyat, 1)
+
+bahceli_kira[, Fiyat := as.numeric(Fiyat)]
+
+bahceli_kira[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+bahceli_kira[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+bahceli_kira[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+bahceli_kira[Bulunduğu == &quot;Bahçe Katı&quot;, Bulunduğu := 0]
+bahceli_kira[Bulunduğu == &quot;Giriş Altı Kot 1&quot;, Bulunduğu := -1]
+bahceli_kira[Bulunduğu == &quot;Giriş Katı&quot;, Bulunduğu := 0]
+bahceli_kira[Bulunduğu == &quot;Zemin Kat&quot;, Bulunduğu := 0]
+bahceli_kira$Eşyalı &lt;- ifelse(bahceli_kira$Eşyalı==&quot;Hayır&quot;,0,1)
+bahceli_kira$Isıtma &lt;- ifelse(bahceli_kira$Isıtma==&quot;Doğalgaz (Kombi)&quot;,1,0)
+
+
+bahceli_kira[, Oda := as.numeric(Oda)]
+bahceli_kira[,`m²`:=as.numeric(`m²`)]
+bahceli_kira[, Bulunduğu := as.numeric(Bulunduğu)]
+bahceli_kira[, Eşyalı := as.numeric(Eşyalı)]
+bahceli_kira[, Isıtma := as.numeric(Isıtma)]
+
+setnames(bahceli_kira, &quot;Bulunduğu&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(Fiyat ~ Bulunduğu_Kat + Isıtma + `m²`+ Oda ,data = bahceli_kira)
+
+vif(model)
+
+summary(model)
+stargazer(model, type = &quot;text&quot;)
+
+#Bahçelievler Satılık Regresyon
+
+setDT(bahceli_satilik)
+bahceli_satilik[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+bahceli_satilik$Fiyat &lt;- word(bahceli_satilik$Fiyat, 1)
+
+bahceli_satilik[, Fiyat := as.numeric(Fiyat)]
+
+bahceli_satilik[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+bahceli_satilik[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+bahceli_satilik[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+bahceli_satilik[Bulunduğu == &quot;Bahçe Katı&quot;, Bulunduğu := 0]
+bahceli_satilik[Bulunduğu == &quot;Giriş Katı&quot;, Bulunduğu := 0]
+bahceli_satilik$Isıtma &lt;- ifelse(bahceli_satilik$Isıtma==&quot;Doğalgaz (Kombi)&quot;,1,0)
+
+
+bahceli_satilik[, Oda := as.numeric(Oda)]
+bahceli_satilik[,`m²`:=as.numeric(`m²`)]
+bahceli_satilik[, Bulunduğu := as.numeric(Bulunduğu)]
+bahceli_satilik[, Isıtma := as.numeric(Isıtma)]
+
+setnames(bahceli_satilik, &quot;Bulunduğu&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(log(Fiyat) ~ Bulunduğu_Kat + Isıtma + log(`m²`)+ Oda ,data = bahceli_satilik)
+
+vif(model)
+
+summary(model)
+stargazer(model, type = &quot;text&quot;)
+
+
+#Denizbostanlısı Kira Regresyon
+
+setDT(Denizbostanli_kira)
+Denizbostanli_kira[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+Denizbostanli_kira$Fiyat &lt;- word(Denizbostanli_kira$Fiyat, 1)
+
+Denizbostanli_kira[, Fiyat := as.numeric(Fiyat)]
+
+Denizbostanli_kira[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+Denizbostanli_kira[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+Denizbostanli_kira[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+Denizbostanli_kira[Bulunduğu == &quot;Bahçe Katı&quot;, Bulunduğu := 0]
+Denizbostanli_kira[Bulunduğu == &quot;Müstakil&quot;, Bulunduğu := 0]
+Denizbostanli_kira[Bulunduğu == &quot;Giriş Katı&quot;, Bulunduğu := 0]
+Denizbostanli_kira$Eşyalı &lt;- ifelse(Denizbostanli_kira$Eşyalı==&quot;Hayır&quot;,0,1)
+Denizbostanli_kira$Isıtma &lt;- ifelse(Denizbostanli_kira$Isıtma==&quot;Doğalgaz (Kombi)&quot;,1,0)
+
+
+Denizbostanli_kira[, Oda := as.numeric(Oda)]
+Denizbostanli_kira[,`m²`:=as.numeric(`m²`)]
+Denizbostanli_kira[, Bulunduğu := as.numeric(Bulunduğu)]
+Denizbostanli_kira[, Eşyalı := as.numeric(Eşyalı)]
+Denizbostanli_kira[, Isıtma := as.numeric(Isıtma)]
+
+setnames(Denizbostanli_kira, &quot;Bulunduğu&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(Fiyat ~ Bulunduğu_Kat + Isıtma + `m²`+ Oda ,data = Denizbostanli_kira)
+
+vif(model)
+
+summary(model)
+stargazer(model, type = &quot;text&quot;)
+
+#Denizbostanlısı Satılık Regresyon
+
+setDT(Denizbostanli_satis)
+Denizbostanli_satis[, Fiyat := gsub(&quot;\\.&quot;, &quot;&quot;, Fiyat)]
+
+Denizbostanli_satis$Fiyat &lt;- word(Denizbostanli_satis$Fiyat, 1)
+
+Denizbostanli_satis[, Fiyat := as.numeric(Fiyat)]
+
+Denizbostanli_satis[Oda == &quot;2+1&quot;, Oda := &quot;3&quot;]
+Denizbostanli_satis[Oda == &quot;3+1&quot;, Oda := &quot;4&quot;]
+Denizbostanli_satis[Bulunduğu == &quot;Yüksek Giriş&quot;, Bulunduğu := 1]
+Denizbostanli_satis[Bulunduğu == &quot;Bahçe Katı&quot;, Bulunduğu := 0]
+Denizbostanli_satis[Bulunduğu == &quot;Müstakil&quot;, Bulunduğu := 0]
+Denizbostanli_satis[Bulunduğu == &quot;Giriş Katı&quot;, Bulunduğu := 0]
+Denizbostanli_satis[Bulunduğu == &quot;Zemin Kat&quot;, Bulunduğu := 0]
+Denizbostanli_satis$Isıtma &lt;- ifelse(Denizbostanli_satis$Isıtma==&quot;Doğalgaz (Kombi)&quot;,1,0)
+
+
+Denizbostanli_satis[, Oda := as.numeric(Oda)]
+Denizbostanli_satis[,`m²`:=as.numeric(`m²`)]
+Denizbostanli_satis[, Bulunduğu := as.numeric(Bulunduğu)]
+Denizbostanli_satis[, Isıtma := as.numeric(Isıtma)]
+
+setnames(Denizbostanli_satis, &quot;Bulunduğu&quot;, &quot;Bulunduğu_Kat&quot;)
+
+
+model &lt;- lm(log(Fiyat) ~ Bulunduğu_Kat + Isıtma + log(`m²`)+ Oda ,data = Denizbostanli_satis)
+
+vif(model)
+
+summary(model)
+stargazer(model, type = &quot;text&quot;)
+</code></pre>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

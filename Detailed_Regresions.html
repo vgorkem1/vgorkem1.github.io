@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Detailed_Regresions.knit</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">413 Proje</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">4'Lu Masa</a>
+</li>
+<li>
+  <a href="index1.html">Literature review</a>
+</li>
+<li>
+  <a href="about.html">Introduction</a>
+</li>
+<li>
+  <a href="p3.html">Rental</a>
+</li>
+<li>
+  <a href="p4.html">On Sale</a>
+</li>
+<li>
+  <a href="codes.html">Codes</a>
+</li>
+<li>
+  <a href="Detailed_Regresions.html">Detailed Regressions</a>
+</li>
+<li>
+  <a href="references.html">References</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+
+<div id="detailed-regressions" class="section level2 tabset">
+<h2 class="tabset">Detailed Regressions</h2>
+<div id="rental-regresion" class="section level3 tabset">
+<h3 class="tabset">Rental Regresion</h3>
+<div id="nergiz" class="section level4">
+<h4>Nergiz</h4>
+<pre><code>## 
+## Call:
+## lm(formula = log(Fiyat) ~ Bulunduğu_Kat + Eşyalı + log(`m²`) + 
+##     Oda, data = Nergiz_kira)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.99981 -0.10782  0.04555  0.16929  0.58399 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    8.64007    0.55083  15.686  &lt; 2e-16 ***
+## Bulunduğu_Kat  0.07746    0.02562   3.023  0.00335 ** 
+## Eşyalı         0.06092    0.08122   0.750  0.45537    
+## log(`m²`)      0.18764    0.16027   1.171  0.24513    
+## Oda           -0.18481    0.10905  -1.695  0.09396 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.347 on 81 degrees of freedom
+## Multiple R-squared:  0.1396, Adjusted R-squared:  0.09712 
+## F-statistic: 3.286 on 4 and 81 DF,  p-value: 0.01508</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="umitköy" class="section level4">
+<h4>Umitköy</h4>
+<pre><code>## 
+## Call:
+## lm(formula = Fiyat ~ Bulunduğu_Kat + Eşyalı + `m²` + Oda, 
+##     data = Umitkoy_kira)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6910.5 -1855.1  -297.6  1353.1 19166.8 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   14966.49    3824.22   3.914 0.000192 ***
+## Bulunduğu_Kat    55.62      81.45   0.683 0.496660    
+## Eşyalı         1134.85    1086.45   1.045 0.299419    
+## `m²`            118.93      22.84   5.207 1.49e-06 ***
+## Oda           -5135.15    1389.42  -3.696 0.000402 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3812 on 79 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.2666, Adjusted R-squared:  0.2295 
+## F-statistic:  7.18 on 4 and 79 DF,  p-value: 5.53e-05</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre><code>## Varince Inflation Factors</code></pre>
+<pre><code>## Bulunduğu_Kat        Eşyalı          `m²`           Oda 
+##      1.211176      1.238037      2.576243      2.750855</code></pre>
+</div>
+<div id="bahçelievler" class="section level4">
+<h4>Bahçelievler</h4>
+<pre><code>## 
+## Call:
+## lm(formula = Fiyat ~ `m²` + Eşyalı + Oda, data = bahceli_kira)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -7560.5 -1989.4  -610.5  1326.3  8582.0 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)
+## (Intercept)  3259.59    3379.84   0.964    0.338
+## `m²`            9.50      25.12   0.378    0.707
+## Eşyalı        832.75     889.87   0.936    0.353
+## Oda          1284.55    1245.19   1.032    0.306
+## 
+## Residual standard error: 3042 on 64 degrees of freedom
+## Multiple R-squared:  0.06736,    Adjusted R-squared:  0.02365 
+## F-statistic: 1.541 on 3 and 64 DF,  p-value: 0.2125</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="denizbostanlısı" class="section level4">
+<h4>Denizbostanlısı</h4>
+<pre><code>## 
+## Call:
+## lm(formula = Fiyat ~ Bulunduğu_Kat + Isıtma + `m²` + Oda, 
+##     data = Denizbostanli_kira)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -13085.9  -4809.3   -144.6   3084.7  25412.6 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   21603.77    5644.81   3.827 0.000216 ***
+## Bulunduğu_Kat    90.93     162.43   0.560 0.576744    
+## Isıtma        -6147.83    1490.19  -4.126 7.21e-05 ***
+## `m²`            215.08      37.18   5.785 6.91e-08 ***
+## Oda           -6732.30    2138.84  -3.148 0.002119 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 7088 on 110 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.4159, Adjusted R-squared:  0.3946 
+## F-statistic: 19.58 on 4 and 110 DF,  p-value: 3.435e-12</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+</div>
+</div>
+<div id="on-sale-regressions" class="section level3 tabset">
+<h3 class="tabset">On Sale Regressions</h3>
+<div id="nergiz-1" class="section level4">
+<h4>Nergiz</h4>
+<pre><code>## 
+## Call:
+## lm(formula = Fiyat ~ Bulunduğu_Kat + `m²` + Oda, data = Nergiz_satis)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1649245  -466710  -137417   388881  2692818 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2164797     808405   2.678   0.0098 ** 
+## Bulunduğu_Kat    61621      65706   0.938   0.3525    
+## `m²`             32048       6501   4.930 8.21e-06 ***
+## Oda            -859639     352673  -2.437   0.0181 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 797400 on 54 degrees of freedom
+## Multiple R-squared:  0.4381, Adjusted R-squared:  0.4068 
+## F-statistic: 14.03 on 3 and 54 DF,  p-value: 7.018e-07</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<pre><code>## Variance Inflation Factors</code></pre>
+<pre><code>## Bulunduğu_Kat          `m²`           Oda 
+##      1.255092      3.110406      2.782508</code></pre>
+</div>
+<div id="umitköy-1" class="section level4">
+<h4>Umitköy</h4>
+<pre><code>## 
+## Call:
+## lm(formula = Fiyat ~ Bulunduğu_Kat + `m²` + Oda, data = Umitkoy_satlik)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1544697  -580882   -59834   426897  4634612 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    2637599    1019742   2.587   0.0123 *  
+## Bulunduğu_Kat    44798      17839   2.511   0.0149 *  
+## `m²`             26582       4711   5.643 5.75e-07 ***
+## Oda            -704733     349960  -2.014   0.0488 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 966700 on 56 degrees of freedom
+## Multiple R-squared:  0.4228, Adjusted R-squared:  0.3918 
+## F-statistic: 13.67 on 3 and 56 DF,  p-value: 8.371e-07</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="bahçelievler-1" class="section level4">
+<h4>Bahçelievler</h4>
+<pre><code>## 
+## Call:
+## lm(formula = log(Fiyat) ~ Bulunduğu_Kat + Isıtma + `m²` + 
+##     Oda, data = bahceli_satilik)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.4932 -0.2192 -0.0090  0.1666  0.9204 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   14.169412   0.345079  41.061  &lt; 2e-16 ***
+## Bulunduğu_Kat  0.055259   0.023466   2.355  0.02213 *  
+## Isıtma        -0.003995   0.085022  -0.047  0.96270    
+## `m²`           0.006825   0.002524   2.704  0.00909 ** 
+## Oda           -0.030301   0.118022  -0.257  0.79834    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3008 on 55 degrees of freedom
+## Multiple R-squared:  0.2834, Adjusted R-squared:  0.2312 
+## F-statistic: 5.437 on 4 and 55 DF,  p-value: 0.0009226</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+<div id="denizbostanlısı-1" class="section level4">
+<h4>Denizbostanlısı</h4>
+<pre><code>## 
+## Call:
+## lm(formula = log(Fiyat) ~ Bulunduğu_Kat + Isıtma + `m²` + 
+##     Oda, data = Denizbostanli_satis)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.28828 -0.27278 -0.04767  0.32544  1.06516 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   15.757184   0.453342  34.758   &lt;2e-16 ***
+## Bulunduğu_Kat  0.020734   0.016037   1.293   0.1999    
+## Isıtma        -0.221980   0.127066  -1.747   0.0846 .  
+## `m²`           0.006041   0.003299   1.831   0.0710 .  
+## Oda           -0.343383   0.168358  -2.040   0.0448 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4813 on 77 degrees of freedom
+## Multiple R-squared:   0.15,  Adjusted R-squared:  0.1058 
+## F-statistic: 3.396 on 4 and 77 DF,  p-value: 0.01301</code></pre>
+<p><img src="Detailed_Regresions_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

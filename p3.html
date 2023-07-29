@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Rental Houses</title>
+
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">413 Proje</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">4'Lu Masa</a>
+</li>
+<li>
+  <a href="index1.html">Literature review</a>
+</li>
+<li>
+  <a href="about.html">Introduction</a>
+</li>
+<li>
+  <a href="p3.html">Rental</a>
+</li>
+<li>
+  <a href="p4.html">On Sale</a>
+</li>
+<li>
+  <a href="codes.html">Codes</a>
+</li>
+<li>
+  <a href="Detailed_Regresions.html">Detailed Regressions</a>
+</li>
+<li>
+  <a href="references.html">References</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Rental Houses</h1>
+
+</div>
+
+
+<pre><code>## 
+## Call:
+## lm(formula = log(Fiyat) ~ Bulunduğu_Kat + Eşyalı + `m²` + 
+##     Oda + sehir, data = tum_kiralik)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -2.4230 -0.2333 -0.0065  0.2576  0.9675 
+## 
+## Coefficients:
+##                Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)    9.318916   0.181940  51.220  &lt; 2e-16 ***
+## Bulunduğu_Kat  0.018682   0.005044   3.704 0.000249 ***
+## Eşyalı         0.117878   0.048891   2.411 0.016453 *  
+## `m²`           0.009559   0.001272   7.513 5.48e-13 ***
+## Oda           -0.266371   0.068910  -3.866 0.000134 ***
+## sehir         -0.344281   0.044873  -7.672 1.92e-13 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4014 on 330 degrees of freedom
+##   (2 observations deleted due to missingness)
+## Multiple R-squared:  0.3514, Adjusted R-squared:  0.3416 
+## F-statistic: 35.76 on 5 and 330 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>As seen in the summary table of the regression, all explanatory
+variables are significant. It is possible to say that as the floor of
+the house increases, the rent increases by 1.8%. As a result, the houses
+in the attic may have heating problems, which is out of this argument.
+It is possible to say that as the floor of the house increases, the rent
+increases by 1.8%. As a result, the houses in the attic may have heating
+problems, which is out of this argument. In addition, you get away from
+the noise of the street as the apartment you own is located on the upper
+floors. You can have a better view and as long as you are not in the
+attic, you will not have a heating problem as you will be on the
+mezzanine. Such reasons may cause the rents of high-floor houses to be
+higher.</p>
+<p>If the house you want to rent is furnished, this increases its price
+by approximately 11%. The result of the regression tells us this. The
+reason for this is not so complicated. You pay more rent because you get
+more services. When you rent a furnished house, you do not have to spend
+money to buy furniture for your house. However, you do this indirectly
+by paying more rent. In addition, if you plan to stay in that house for
+a long time, the furnished house probably won’t make sense.</p>
+<p><img src="p3_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>It is possible to say that as the floor of the house increases, the
+rent increases by 1.7%. As a result, the houses in the attic may have
+heating problems, which is out of this argument. In addition, you get
+away from the noise of the street as the apartment you own is located on
+the upper floors. You can have a better view and as long as you are not
+in the attic, you will not have a heating problem as you will be on the
+mezzanine. Such reasons may cause the rents of high-floor houses to be
+higher.</p>
+<p><img src="p3_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>According to the results of the regression, it is possible to say
+that the rent increases by approximately 1% as the size of the house
+increases.</p>
+<p>According to the results of the regression, 4-room houses have a 26%
+cheaper rental price than 3-room houses. Although this may seem strange
+at first glance, there may be many different reasons behind it. A fact
+to consider is that people now generally live alone in big cities and
+therefore demand smaller houses. In Ankara/Bahçelievler, where we
+obtained some of our data, <a
+href="https://secure.sahibinden.com/emlak360/emlak-endeksi/konut/satilik/ankara/59/3409"><strong><em>47%
+of the tenants are single</em></strong></a>. Data regarding the marriage
+age of women over time shows that in the 1950’s, the earliest age was
+19. Compared to today’s time, that age has increased to 25.6. This
+indicates that people are now usually single for a longer time, which
+can explain higher demand towards homes with less rooms or space. Most
+of the 3 room houses in our dataset are in the young building category
+(&lt; 15 years). This shows us that the 3 room houses are newer. In
+other words, the biggest factor in 3-room houses being more expensive
+than 4-room houses is that those houses are newer.</p>
+<pre class="r"><code>vif(model)</code></pre>
+<pre><code>## Bulunduğu_Kat        Eşyalı          `m²`           Oda         sehir 
+##      1.106538      1.059852      2.328053      2.412202      1.040484</code></pre>
+<p>There is no multicollinearity problem since all the VIF values less
+then 10.</p>
+<p>Let’s come to our sharpest conclusion. Houses in Ankara have 45%
+lower rental prices than houses in Izmir. There are of course many
+reasons for this. We took care to obtain our data from nearby
+socioeconomic regions. While we chose the Ümitköy district, where people
+with relatively higher incomes live, in Ankara, we also preferred
+Denizbostanlısı district, where people with higher incomes live in
+İzmir. In addition, we preferred Bahçelievler from Ankara and Nergiz
+from İzmir for a relatively lower income demographic. Within the EVDS
+database of the CBRT, there can be data found regarding the price index
+of housing based on city. By comparing the indexes for Ankara and Izmir,
+one can see that Izmir has a higher index, meaning that housing is
+usually more expensive compared to Ankara. So, our regression results
+are consistent with <a
+href="https://evds2.tcmb.gov.tr/index.php?/evds/serieMarket/#collapse_4"><strong><em>the
+CBRT data</em></strong></a>.</p>
+<p>Both of the two districts we chose from Izmir are very close to the
+sea. Some houses even have a direct sea view. This is a factor that
+greatly increases the value of the houses. In addition, Denizbostanlısı
+and Nergiz İzmir’s most popular and central places; On the other hand,
+the places we chose from Ankara are not the most popular places in
+Ankara, although it is the center. Here, too, İzmir comes to the fore.
+In addition, we have determined that many shopping malls have been
+opened in Denizbostanlısı and Nergiz in recent years. This increased the
+popularity of the region and increased house prices. These are somewhat
+qualitative secondary data. There is an important quantitative situation
+that directly affects the outcome of our data. Although the demand of
+foreign investors for Ankara is higher than the demand for İzmir, their
+demands for İzmir are generally concentrated in this region. There is no
+such specific concentration in Ankara. With the increase in demand for
+this region, the rent prices of the region are also increasing.</p>
+<p>Another finding from our dataset worth mentioning is that the number
+of homes with 3 rooms considered to be “new” (genc) exceeds the number
+of homes with 4 rooms also considered as new. This can be a potential
+explanation as to why properties with fewer rooms can be sold or rented
+at a higher price.</p>
+<p><img src="p3_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>After running our regression of the rent model, we graphed the
+distribution of the residuals from our model and compared it to a normal
+bell curve to check for the normality of errors. The residual
+distribution is shown in black and the normal distribution is in red. As
+you can see, the residuals from our model have a similar distribution
+compared to the normal curve. The error term from a regression should
+have a mean of 0 and the residuals from our rent model have a mean of
+2.820906e-18, which is basically 0.</p>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
